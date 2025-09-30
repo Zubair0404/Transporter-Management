@@ -1,20 +1,24 @@
-import React from 'react';
-import Sidebar from './components/layout/Sidebar';
-import Header from './components/layout/Header';
-
+import React, { useState } from "react";
+import Sidebar from "./components/layout/Sidebar";
+import Header from "./components/layout/Header";
+import ShipmentTracking from "./Pages/ShipmentTracking";
 
 function App() {
-    return (
-        <div className="flex h-screen bg-gray-100">
-            <Sidebar activeTab="dashboard" setActiveTab={() => { }} />
-            <div className="flex-1 flex flex-col overflow-hidden">
-                <Header title="Dashboard" />
-                <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6">
-                    Main content
-                </main>
-            </div>
-        </div>
-    )
+  const [activeTab, setActiveTab] = useState("dashboard");
+  return (
+    <div className="flex h-screen bg-gray-100">
+      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <Header
+          title={activeTab === "tracking" ? "Shipment Tracking" : "Dashboard"}
+        />
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6">
+          {activeTab === "tracking" && <ShipmentTracking />}
+          {activeTab === "dashboard" && <div>Dashboard Content</div>}
+        </main>
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
